@@ -48,3 +48,11 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
+
+.move-list {
+  font-weight: normal;
+}
+
+.move-list-selected {
+  font-weight: 900; 
+}
