@@ -60,7 +60,7 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    const isSortOrderAsc = this.state.isSortOrderAsc;
+    const isSortOrderAsc = this.state.isSortOrderAsc;    
     const moves = history.map((step, move) => {
       const styleType = move === this.state.stepNumber ?
         'move-list-selected' :
@@ -95,7 +95,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>                    
+          <ol>{isSortOrderAsc ? moves : moves.slice(0).reverse()}</ol>                    
         </div>                  
       </div>
     );
