@@ -56,3 +56,7 @@ ol, ul {
 .move-list-selected {
   font-weight: 900; 
 }
+
+.control-panel {
+  padding-top: 15px;
+}

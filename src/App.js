@@ -50,19 +50,21 @@ class Game extends React.Component {
         locations: Array(9).fill(null)
       }],
       xIsNext: true,
-      stepNumber: 0
+      stepNumber: 0,
+      isSortOrderAsc: true,
     };
   }
+
 
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);                
+    const winner = calculateWinner(current.squares);
+    const isSortOrderAsc = this.state.isSortOrderAsc;
     const moves = history.map((step, move) => {
       const styleType = move === this.state.stepNumber ?
         'move-list-selected' :
         'move-list'
-      console.log(styleType)
       const desc = move ?
         `Move #  ${move} ${current.locations[move]}` :
         'Game start';
@@ -72,13 +74,14 @@ class Game extends React.Component {
         </li>
       );
     });
-
+  
     let status;
     if (winner) {
       status = 'Winner: ' + winner
     } else {
       const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
+    }    
+
     return (
       <div>
         <div className="game-board">
@@ -87,12 +90,22 @@ class Game extends React.Component {
             onClick={(i) => this.handleClick(i)}
           />
         </div>
+        <div className="control-panel">        
+          <button onClick={(state) => this.flipSortOrder(state)}>Toggle Sort order {isSortOrderAsc ? 'asc' : 'desc'}</button>                                
+        </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
-        </div>
+          <ol>{moves}</ol>                    
+        </div>                  
       </div>
     );
+  }
+
+  flipSortOrder() {    
+      const isSortOrderAsc = this.state.isSortOrderAsc;
+      this.setState({
+        isSortOrderAsc: !isSortOrderAsc
+      });
   }
 
   handleClick(i) {
@@ -112,7 +125,7 @@ class Game extends React.Component {
         locations: locations       
       }]),
       xIsNext: !this.state.xIsNext,
-      stepNumber: step
+      stepNumber: step,
     });    
   }
 
@@ -122,6 +135,7 @@ class Game extends React.Component {
       xIsNext: (step % 2) ? false : true,
     });
   }
+
 }
 
 // ========================================
